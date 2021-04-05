@@ -82,4 +82,18 @@ public class UserValidatorTest {
         Assertions.assertFalse(result);
     }
 
+    @Test
+    void givenPassword_WhenProper_ShouldReturnTrue() {
+        UserValidator validator = new UserValidator();
+        boolean result = validator.validatePassword("Aa1@qwert");
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    void givenPassword_WhenNoSpecialCharacter_ShouldReturnFalse() {
+        UserValidator validator = new UserValidator();
+        boolean result = validator.validatePassword("Aa1dgdhghjh");
+        Assertions.assertFalse(result);
+    }
+    
 }
