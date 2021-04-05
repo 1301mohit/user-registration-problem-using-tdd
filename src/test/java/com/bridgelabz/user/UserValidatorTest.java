@@ -61,4 +61,25 @@ public class UserValidatorTest {
         Assertions.assertTrue(result);
     }
 
+    @Test
+    public void givenMobileNumberWithCountryCode_WhenProper_ShouldReturnTrue() {
+        UserValidator validator = new UserValidator();
+        boolean result = validator.validateMobileNumber("91 9999999999");
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    public void givenMobileNumberWithCountryCode_WhenNotProper_ShouldReturnFalse() {
+        UserValidator validator = new UserValidator();
+        boolean result = validator.validateMobileNumber("919999999999");
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    public void givenMobileNumberWithCountryCode_WhenWithOutCode_ShouldReturnFalse() {
+        UserValidator validator = new UserValidator();
+        boolean result = validator.validateMobileNumber("9999999999");
+        Assertions.assertFalse(result);
+    }
+
 }
