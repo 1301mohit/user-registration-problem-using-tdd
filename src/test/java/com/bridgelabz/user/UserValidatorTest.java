@@ -41,11 +41,24 @@ public class UserValidatorTest {
     }
 
     @Test
-    void givenLastName_WhenSpecialSymbol_ShouldReturnFalse() {
+    public void givenLastName_WhenSpecialSymbol_ShouldReturnFalse() {
         UserValidator validator = new UserValidator();
         boolean result = validator.validateLastName("Kum@r");
         Assertions.assertFalse(result);
     }
 
+    @Test
+    public void givenEmail_WhenProper_ShouldReturnTrue() {
+        UserValidator validator = new UserValidator();
+        boolean result = validator.validateEmail("abc.pqr@bridgelabz.co.in");
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    public void givenEmail_WhenOnlyMandatoryPart_ShouldReturnTrue() {
+        UserValidator validator = new UserValidator();
+        boolean result = validator.validateEmail("abc@bridgelabz.co");
+        Assertions.assertTrue(result);
+    }
 
 }
