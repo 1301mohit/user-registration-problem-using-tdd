@@ -20,14 +20,21 @@ public class UserValidatorTest {
 
     @Test
     public void givenFirstName_WhenWithTwoCharacter_ShouldReturnFalse() {
-        boolean result = validator.validateFirstName("Mo");
-        Assertions.assertFalse(result);
+        try {
+            boolean result = validator.validateFirstName("Mo");
+        }catch (UserException exception) {
+            Assertions.assertEquals(UserException.UserExceptionType.INVALID_FIRST_NAME, exception.type);
+        }
+
     }
 
     @Test
     public void givenFirstName_WhenWithSpecialSymbol_ShouldReturnFalse() {
-        boolean result = validator.validateFirstName("mo@it");
-        Assertions.assertFalse(result);
+        try {
+            boolean result = validator.validateFirstName("Mo#it");
+        } catch (UserException exception) {
+            Assertions.assertEquals(UserException.UserExceptionType.INVALID_FIRST_NAME, exception.type);
+        }
     }
 
     @Test
@@ -38,14 +45,20 @@ public class UserValidatorTest {
 
     @Test
     public void givenLastName_WhenTwoCharacter_ShouldReturnFalse() {
-        boolean result = validator.validateLastName("Ku");
-        Assertions.assertFalse(result);
+        try {
+            boolean result = validator.validateLastName("Ku");
+        } catch (UserException exception) {
+            Assertions.assertEquals(UserException.UserExceptionType.INVALID_LAST_NAME, exception.type);
+        }
     }
 
     @Test
     public void givenLastName_WhenSpecialSymbol_ShouldReturnFalse() {
-        boolean result = validator.validateLastName("Kum@r");
-        Assertions.assertFalse(result);
+        try {
+            boolean result = validator.validateLastName("Kum@r");
+        } catch (UserException exception) {
+            Assertions.assertEquals(UserException.UserExceptionType.INVALID_LAST_NAME, exception.type);
+        }
     }
 
     @Test
@@ -68,14 +81,20 @@ public class UserValidatorTest {
 
     @Test
     public void givenMobileNumberWithCountryCode_WhenNotProper_ShouldReturnFalse() {
-        boolean result = validator.validateMobileNumber("919999999999");
-        Assertions.assertFalse(result);
+        try {
+            boolean result = validator.validateMobileNumber("919999999999");
+        } catch(UserException exception) {
+            Assertions.assertEquals(UserException.UserExceptionType.INVALID_MOBILE_NUMBER, exception.type);
+        }
     }
 
     @Test
     public void givenMobileNumberWithCountryCode_WhenWithOutCode_ShouldReturnFalse() {
-        boolean result = validator.validateMobileNumber("9999999999");
-        Assertions.assertFalse(result);
+        try {
+            boolean result = validator.validateMobileNumber("919999999999");
+        } catch(UserException exception) {
+            Assertions.assertEquals(UserException.UserExceptionType.INVALID_MOBILE_NUMBER, exception.type);
+        }
     }
 
     @Test
@@ -86,8 +105,11 @@ public class UserValidatorTest {
 
     @Test
     void givenPassword_WhenNoSpecialCharacter_ShouldReturnFalse() {
-        boolean result = validator.validatePassword("Aa1dgdhghjh");
-        Assertions.assertFalse(result);
+        try {
+            boolean result = validator.validatePassword("Aa1dgdhghjh");
+        } catch(UserException exception) {
+            Assertions.assertEquals(UserException.UserExceptionType.INVALID_PASSWORD, exception.type);
+        }
     }
 
     @ParameterizedTest
@@ -103,7 +125,11 @@ public class UserValidatorTest {
     @ParameterizedTest
     @MethodSource
     void givenListOfEmails_WhenNotProper_ShouldReturnFalse(String input) {
-        Assertions.assertFalse(validator.validateEmail(input));
+        try {
+            validator.validateEmail(input);
+        } catch(UserException exception) {
+            Assertions.assertEquals(UserException.UserExceptionType.INVALID_EMAIL, exception.type);
+        }
     }
 
     private static Stream<String> givenListOfEmails_WhenNotProper_ShouldReturnFalse(){
